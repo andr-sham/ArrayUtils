@@ -64,11 +64,12 @@ public class ArrayUtils {
          * превращаем 2-х мерный массив в одномерный и сортируем его по возрастанию
          */
 
+        int[][] sortedArray = arrayCopy(nums);
         int[] oneLineArray;
-        oneLineArray = sortOneDimensionalArray(nums[0]);
-        for (int i = 1; i < nums.length; i++) {
-            nums[i] = sortOneDimensionalArray(nums[i]);  // сортировка построчно
-            oneLineArray = merge(oneLineArray, nums[i]); // слияние в отсортированных строк в одну
+        oneLineArray = sortOneDimensionalArray(sortedArray[0]);
+        for (int i = 1; i < sortedArray.length; i++) {
+            sortedArray[i] = sortOneDimensionalArray(sortedArray[i]);  // сортировка построчно
+            oneLineArray = merge(oneLineArray, sortedArray[i]); // слияние в отсортированных строк в одну
         }
 
         /*
@@ -76,12 +77,12 @@ public class ArrayUtils {
          */
 
         int countOfFinishedElem = 0;
-        for (int[] num : nums) {
+        for (int[] num : sortedArray) {
             System.arraycopy(oneLineArray, countOfFinishedElem, num, 0, num.length);
             countOfFinishedElem += num.length;
         }
 
-        return nums;
+        return sortedArray;
     }
 
     /**
@@ -144,49 +145,68 @@ public class ArrayUtils {
     }
 
 
-
     /**
      * Метод flipHorizontally возвращает на выход массив, значения которого зеркально отражены по горизонтали.
+     *
      * @param arrayToFlip массив для отражения по горизонтали
      * @return зеркально отраженный массив по горизонтали
      */
     public int[][] flipHorizontally(int[][] arrayToFlip) {
-        for (int i = 0; i < arrayToFlip.length / 2; i++) {
-            for (int j = 0; j < arrayToFlip[i].length; j++) {
-                swap(arrayToFlip, i, j, arrayToFlip.length - i - 1, j);
+        int[][] flippedArray = arrayCopy(arrayToFlip);
+        for (int i = 0; i < flippedArray.length / 2; i++) {
+            for (int j = 0; j < flippedArray[i].length; j++) {
+                swap(flippedArray, i, j, flippedArray.length - i - 1, j);
             }
         }
-        return arrayToFlip;
+        return flippedArray;
     }
 
     /**
      * Метод flipVertically возвращает на выход массив, значения которого зеркально отражены по вертикали.
+     *
      * @param arrayToFlip массив для отражения по вертикали
      * @return зеркально отраженный массив по вертикали
      */
 
     public int[][] flipVertically(int[][] arrayToFlip) {
-        for (int i = 0; i < arrayToFlip.length; i++) {
-            for (int j = 0; j < arrayToFlip[i].length / 2; j++) {
-                swap(arrayToFlip, i, j, i, arrayToFlip[i].length - j - 1);
+        int[][] flippedArray = arrayCopy(arrayToFlip);
+        for (int i = 0; i < flippedArray.length; i++) {
+            for (int j = 0; j < flippedArray[i].length / 2; j++) {
+                swap(flippedArray, i, j, i, flippedArray[i].length - j - 1);
             }
         }
-        return arrayToFlip;
+        return flippedArray;
     }
 
     /**
      * метод swap меняет местами 2 элемента в массиве
+     *
      * @param arrayToSwap исходный массив, содержащий 2 элемента, которые необходимо поменять местами
-     * @param i номер строки 1-ого элемента
-     * @param j номер столбца 1-ого элемента
-     * @param i1 номер строки 2-ого элемента
-     * @param j1 номер стобца 2-ого элемента
+     * @param i           номер строки 1-ого элемента
+     * @param j           номер столбца 1-ого элемента
+     * @param i1          номер строки 2-ого элемента
+     * @param j1          номер стобца 2-ого элемента
      */
-    private static int[][] swap(int[][] arrayToSwap, int i, int j, int i1, int j1) {
+    private static void swap(int[][] arrayToSwap, int i, int j, int i1, int j1) {
         arrayToSwap[i][j] += arrayToSwap[i1][j1];
         arrayToSwap[i1][j1] = arrayToSwap[i][j] - arrayToSwap[i1][j1];
         arrayToSwap[i][j] -= arrayToSwap[i1][j1];
-        return arrayToSwap;
+    }
+
+    /**
+     * Метод arrayCopy копирует массив
+     *
+     * @param arrayForCopy копируемый массив
+     * @return скопированный массив
+     */
+    private static int[][] arrayCopy(int[][] arrayForCopy) {
+        int[][] copiedArray = new int[arrayForCopy.length][arrayForCopy[0].length];
+        for (int i = 0; i < arrayForCopy.length; i++) {
+            for (int j = 0; j < arrayForCopy[i].length; j++) {
+                copiedArray[i][j] = arrayForCopy[i][j];
+            }
+        }
+        return copiedArray;
     }
 
 }

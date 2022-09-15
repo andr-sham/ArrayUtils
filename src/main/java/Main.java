@@ -18,22 +18,42 @@ public class Main {
 
         arrayUtils.print(arrayWithData);
 
+        /*
+        Сортировка по возрастанию
+         */
+
         int[][] arraySorted = arrayUtils.sort(arrayWithData);
         System.out.println();
         System.out.println("Отсортированный по возрастанию массив");
         arrayUtils.print(arraySorted);
 
-        System.out.println();
-        arrayUtils.print(arrayWithData);
+        /*
+        разворот массива на 90 градусов
+         */
+
 
         int[][] arrayRotatedRight = arrayUtils.rotateRight(arrayWithData);
         System.out.println();
-        System.out.println("Массив, развёрнутывй на 90 градусов направо");
+        System.out.println("Массив, развёрнутый на 90 градусов направо");
         arrayUtils.print(arrayRotatedRight);
 
+        /*
+        зеркальное отображение массива по вертикали
+         */
 
+        int[][] arrayFlippedVertically = arrayUtils.flipVertically(arrayWithData);
+        System.out.println();
+        System.out.println("Массив, зеркально отображённый по вертикали");
+        arrayUtils.print(arrayFlippedVertically);
 
+        /*
+        зеркальное отображение массива по горизонтали
+         */
 
+        int[][] arrayFlippedHorizontally = arrayUtils.flipHorizontally(arrayWithData);
+        System.out.println();
+        System.out.println("Массив, зеркально отображённый по горизонтали");
+        arrayUtils.print(arrayFlippedHorizontally);
 
     }
 }
