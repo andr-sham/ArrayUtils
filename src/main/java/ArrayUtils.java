@@ -36,16 +36,15 @@ public class ArrayUtils {
      * @param nums исходный массив
      * @return отсортированный массив
      */
-    private static int[] sortOneDimensionalArray(int[] nums) {
+    public int[] sortOneDimensionalArray(int[] nums) {
         if (nums.length != 1) {   // выход из рекурсии если размер массива равен 1
 
             /*
             разбиваем массив на 2 массива примерно пополам
              */
-            int[] leftArray;
-            int[] rightArray;
-            leftArray = arrayCopyOfRange(nums, 0, nums.length / 2);
-            rightArray = arrayCopyOfRange(nums, nums.length / 2, nums.length);
+
+            int[] leftArray = arrayCopyOfRange(nums, 0, nums.length / 2);
+            int[] rightArray = arrayCopyOfRange(nums, nums.length / 2, nums.length);
 
             /*
             рекурсивно сортируем оба массива
@@ -74,8 +73,7 @@ public class ArrayUtils {
          */
 
         int[][] sortedArray = arrayCopy(nums);
-        int[] oneLineArray;
-        oneLineArray = sortOneDimensionalArray(sortedArray[0]);
+        int[] oneLineArray = sortOneDimensionalArray(sortedArray[0]);
         for (int i = 1; i < sortedArray.length; i++) {
             sortedArray[i] = sortOneDimensionalArray(sortedArray[i]);  // сортировка построчно
             oneLineArray = merge(oneLineArray, sortedArray[i]); // слияние в отсортированных строк в одну
@@ -102,7 +100,7 @@ public class ArrayUtils {
      * @return возврат единого отсортированного массива
      */
 
-    private static int[] merge(int[] leftArray, int[] rightArray) {
+    private int[] merge(int[] leftArray, int[] rightArray) {
 
         /*
         счётчики для подмассивов
@@ -196,7 +194,7 @@ public class ArrayUtils {
      * @param i1          номер строки 2-ого элемента
      * @param j1          номер стобца 2-ого элемента
      */
-    private static void swap(int[][] arrayToSwap, int i, int j, int i1, int j1) {
+    private void swap(int[][] arrayToSwap, int i, int j, int i1, int j1) {
         arrayToSwap[i][j] += arrayToSwap[i1][j1];
         arrayToSwap[i1][j1] = arrayToSwap[i][j] - arrayToSwap[i1][j1];
         arrayToSwap[i][j] -= arrayToSwap[i1][j1];
@@ -208,7 +206,7 @@ public class ArrayUtils {
      * @param arrayForCopy копируемый массив
      * @return скопированный массив
      */
-    private static int[][] arrayCopy(int[][] arrayForCopy) {
+    private int[][] arrayCopy(int[][] arrayForCopy) {
         int[][] copiedArray = new int[arrayForCopy.length][arrayForCopy[0].length];
         for (int i = 0; i < arrayForCopy.length; i++) {
             for (int j = 0; j < arrayForCopy[i].length; j++) {
@@ -227,7 +225,7 @@ public class ArrayUtils {
      * @return скипированная часть массива
      */
 
-    private static int[] arrayCopyOfRange(int[] originalArray, int fromIndex, int toIndex) {
+    private int[] arrayCopyOfRange(int[] originalArray, int fromIndex, int toIndex) {
         int[] copiedArray = new int[toIndex - fromIndex];
         for (int i = fromIndex, j = 0; i < toIndex; i++, j++) {
             copiedArray[j] = originalArray[i];
@@ -245,7 +243,7 @@ public class ArrayUtils {
      * @param length        количество символов для копирования
      */
 
-    private static void arrayCopyOfRangeFromTo(int[] originalArray, int srcStartIndex, int[] copiedArray, int destIndex, int length) {
+    private void arrayCopyOfRangeFromTo(int[] originalArray, int srcStartIndex, int[] copiedArray, int destIndex, int length) {
         for (int i = srcStartIndex, j = destIndex; i < srcStartIndex + length; i++, j++) {
             copiedArray[j] = originalArray[i];
         }
