@@ -11,9 +11,7 @@ public class ArrayUtils {
      */
     public void print(int[][] arrayToPrint) {
         for (int[] ints : arrayToPrint) {
-            for (int anInt : ints) {
-                System.out.print(anInt + "\t");
-            }
+            print(ints);
             System.out.println();
         }
     }
