@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Утилиты для работы с массивами
  */
@@ -21,6 +19,19 @@ public class ArrayUtils {
     }
 
     /**
+     * Метод print принимает на вход одномерный массив любого размера,
+     * заполненного целыми числами и выводит его в консоль в виде таблицы
+     *
+     * @param arrayToPrint передаваемый массив для вывода в консоль
+     */
+
+    public void print(int[] arrayToPrint) {
+        for (int ints : arrayToPrint) {
+            System.out.print(ints + "\t");
+        }
+    }
+
+    /**
      * Метод sortOneDimensionalArray сортирует одномерный массив по возрастанию слиянием
      * с помощью рекурсии
      *
@@ -35,8 +46,8 @@ public class ArrayUtils {
              */
             int[] leftArray;
             int[] rightArray;
-            leftArray = Arrays.copyOfRange(nums, 0, nums.length / 2);
-            rightArray = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
+            leftArray = arrayCopyOfRange(nums, 0, nums.length / 2);
+            rightArray = arrayCopyOfRange(nums, nums.length / 2, nums.length);
 
             /*
             рекурсивно сортируем оба массива
@@ -78,7 +89,7 @@ public class ArrayUtils {
 
         int countOfFinishedElem = 0;
         for (int[] num : sortedArray) {
-            System.arraycopy(oneLineArray, countOfFinishedElem, num, 0, num.length);
+            arrayCopyOfRangeFromTo(oneLineArray, countOfFinishedElem, num, 0, num.length);
             countOfFinishedElem += num.length;
         }
 
@@ -119,9 +130,9 @@ public class ArrayUtils {
          */
 
         if (rightArray.length - countRight > leftArray.length - countLeft) {    // если закончился левый массив, а в правом ещё остались элементы
-            System.arraycopy(rightArray, countRight, mergedArray, countLeft + countRight, rightArray.length - countRight); // дописываем оставшиеся элементы правого массива в итоговый массив
+            arrayCopyOfRangeFromTo(rightArray, countRight, mergedArray, countLeft + countRight, rightArray.length - countRight); // дописываем оставшиеся элементы правого массива в итоговый массив
         } else {
-            System.arraycopy(leftArray, countLeft, mergedArray, countLeft + countRight, leftArray.length - countLeft);  // и наоборот
+            arrayCopyOfRangeFromTo(leftArray, countLeft, mergedArray, countLeft + countRight, leftArray.length - countLeft);  // и наоборот
         }
         return mergedArray;
     }
@@ -209,8 +220,37 @@ public class ArrayUtils {
         return copiedArray;
     }
 
+    /**
+     * Метод arrayCopyOfRange копирует часть массива в новый массив
+     *
+     * @param originalArray исходный массив
+     * @param fromIndex     с какого элемента копируем (включительно)
+     * @param toIndex       по какой элемент копируем (исключительно)
+     * @return скипированная часть массива
+     */
+
+    private static int[] arrayCopyOfRange(int[] originalArray, int fromIndex, int toIndex) {
+        int[] copiedArray = new int[toIndex - fromIndex];
+        for (int i = fromIndex, j = 0; i < toIndex; i++, j++) {
+            copiedArray[j] = originalArray[i];
+        }
+        return copiedArray;
+    }
+
+    /**
+     * Метод arrayCopyOfRangeFromTo копирует часть массива в другой массив начиная с заданной позиции
+     *
+     * @param originalArray исходный массив для копирования
+     * @param srcStartIndex начальная позиция в исходном массиве originalArray, которой производим копирование
+     * @param copiedArray   целевой массив, в который копируем данные
+     * @param destIndex     начальная позиция целевого массива copiedArray
+     * @param length        количество символов для копирования
+     */
+
+    private static void arrayCopyOfRangeFromTo(int[] originalArray, int srcStartIndex, int[] copiedArray, int destIndex, int length) {
+        for (int i = srcStartIndex, j = destIndex; i < srcStartIndex + length; i++, j++) {
+            copiedArray[j] = originalArray[i];
+        }
+    }
+
 }
-
-
-
-
